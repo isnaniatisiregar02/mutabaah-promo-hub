@@ -7,24 +7,20 @@ import {
 
 const faqs = [
   {
-    question: "Apakah MUTABAAHKU bisa digunakan offline?",
-    answer: "Saat ini MUTABAAHKU membutuhkan koneksi internet untuk sinkronisasi data. Namun, kami sedang mengembangkan fitur offline untuk versi mendatang.",
+    question: "Apakah aplikasi MUTABAAHKU bisa diakses Offline tanpa internet?",
+    answer: "Bisa, namun untuk fitur tadabbur yang menggunakan AI harus menggunakan internet ya.",
   },
   {
-    question: "Berapa banyak santri yang bisa dikelola?",
-    answer: "Dengan akses premium, Anda bisa mengelola santri tanpa batas. Cocok untuk halaqah kecil hingga pesantren besar.",
+    question: "Apakah boleh aplikasi ini saya share gratis ke teman-teman?",
+    answer: "Maaf, tidak boleh membagikan aplikasi ini secara gratis kepada siapapun, karena lisensinya personal untuk pakai sendiri.",
   },
   {
-    question: "Apakah data hafalan saya aman?",
-    answer: "Ya, semua data disimpan dengan enkripsi di server cloud yang aman. Kami memprioritaskan keamanan dan privasi data Anda.",
+    question: "Apakah bisa digunakan oleh pemula?",
+    answer: "Ya, sangat bisa. Aplikasi ini dibuat khusus untuk memudahkan penghafal Quran.",
   },
   {
-    question: "Bagaimana cara pembayaran?",
-    answer: "Pembayaran dapat dilakukan melalui transfer bank atau e-wallet. Setelah pembayaran dikonfirmasi, akses premium akan langsung aktif.",
-  },
-  {
-    question: "Apakah ada garansi uang kembali?",
-    answer: "Ya, kami memberikan garansi 7 hari uang kembali jika Anda tidak puas dengan layanan kami. Tanpa pertanyaan.",
+    question: "Apakah aplikasi ini bisa dibuka lebih dari satu device?",
+    answer: "Mohon maaf aplikasi ini hanya bisa digunakan di satu device (HP, laptop atau tab) silahkan pilih sendiri nyamannya digunakan dimana.",
   },
 ];
 

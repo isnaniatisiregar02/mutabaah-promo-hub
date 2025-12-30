@@ -1,35 +1,30 @@
-import { BookOpen, BarChart3, Users, Bell, Shield, Smartphone } from "lucide-react";
+import { NotebookPen, FileDown, Target, Sparkles, Bell } from "lucide-react";
 
 const features = [
   {
-    icon: BookOpen,
-    title: "Pencatatan Hafalan",
-    description: "Catat progress hafalan per ayat, surah, atau juz dengan mudah dan terorganisir.",
+    icon: NotebookPen,
+    title: "Catatan Hafalan",
+    description: "Kamu bisa input catatan hafalanmu dengan mudah dan terorganisir.",
   },
   {
-    icon: BarChart3,
-    title: "Statistik Progress",
-    description: "Pantau perkembangan hafalan dengan grafik dan laporan yang informatif.",
+    icon: FileDown,
+    title: "Export PDF",
+    description: "Data hafalan bisa diunduh dalam bentuk PDF yang rapi dan profesional.",
   },
   {
-    icon: Users,
-    title: "Manajemen Santri",
-    description: "Kelola banyak santri dalam satu dashboard untuk halaqah atau pesantren.",
+    icon: Target,
+    title: "Goals Tracker",
+    description: "Rencanakan goals hafalan atau targetmu sehingga kamu bisa lebih semangat menghafal dan murojaah hafalan.",
+  },
+  {
+    icon: Sparkles,
+    title: "Tadabbur Insight",
+    description: "Catat tadabbur ayat hari ini dengan fitur insight AI otomatis. Input nama surah dan nomor ayat, muncul teks ayat, tafsir (Mukhtasar Ibnu Katsir atau As-Sa'di), motivasi dan faedah ayat.",
   },
   {
     icon: Bell,
-    title: "Pengingat Muroja'ah",
-    description: "Notifikasi otomatis untuk jadwal muroja'ah agar hafalan tetap terjaga.",
-  },
-  {
-    icon: Shield,
-    title: "Data Aman",
-    description: "Data hafalan tersimpan aman di cloud dan dapat diakses kapan saja.",
-  },
-  {
-    icon: Smartphone,
-    title: "Akses Multi-Device",
-    description: "Gunakan di smartphone, tablet, atau laptop dengan tampilan responsif.",
+    title: "Toast Notifikasi Update",
+    description: "Setiap ada update aplikasi kamu pasti dapat notifnya, tinggal klik tombol update otomatis aplikasi update.",
   },
 ];
 

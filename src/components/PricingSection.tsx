@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Sparkles, ArrowRight, Clock } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 
-const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
 
 const PricingSection = () => {
   const features = [

@@ -33,7 +33,7 @@ const HeroSection = () => {
           {/* Description */}
           <p className="text-lg md:text-xl text-muted-foreground max-w-xl mx-auto mb-8 animate-fade-up delay-300">
             Aplikasi digital untuk mencatat dan memantau progress hafalan Al-Quran. 
-            Cocok untuk pribadi, halaqah, atau pesantren.
+            Cocok untuk penghafal quran yang ingin konsisten menjaga hafalan qurannya.
           </p>
 
           {/* CTA Buttons */}

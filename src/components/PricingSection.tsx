@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { Check, Sparkles, ArrowRight, Clock } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
+
 const PricingSection = () => {
   const features = [
     "Akses penuh semua fitur",
@@ -97,7 +99,7 @@ const PricingSection = () => {
 
             {/* CTA Button */}
             <Button variant="hero" size="xl" className="w-full" asChild>
-              <a href="https://mutabaah-hafalan.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
                 Dapatkan Sekarang
                 <ArrowRight className="w-5 h-5" />
               </a>

@@ -2,6 +2,8 @@ import { Button } from "@/components/ui/button";
 import { BookOpen, Menu, X } from "lucide-react";
 import { useState } from "react";
 
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
@@ -40,7 +42,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button asChild>
-              <a href="https://mutabaah-hafalan.vercel.app/" target="_blank" rel="noopener noreferrer">
+              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
                 Mulai Sekarang
               </a>
             </Button>
@@ -70,7 +72,7 @@ const Navbar = () => {
                 </a>
               ))}
               <Button asChild className="mt-2">
-                <a href="https://mutabaah-hafalan.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
                   Mulai Sekarang
                 </a>
               </Button>

@@ -1,0 +1,1553 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MUTABAAHKU - Aplikasi Mutabaah Hafalan Al-Quran Digital</title>
+    <meta name="description" content="Pantau progress hafalan Al-Quran dengan mudah. Aplikasi digital untuk mencatat dan memantau hafalan. Cocok untuk pribadi, halaqah, atau pesantren. Harga promo Rp29.000.">
+    <meta name="keywords" content="mutabaah, hafalan quran, tahfidz, aplikasi hafalan, quran digital">
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Lucide Icons CDN -->
+    <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+    
+    <style>
+        :root {
+            --background: 140 20% 97%;
+            --foreground: 150 25% 15%;
+            --card: 0 0% 100%;
+            --card-foreground: 150 25% 15%;
+            --primary: 153 35% 45%;
+            --primary-foreground: 0 0% 100%;
+            --secondary: 145 25% 92%;
+            --secondary-foreground: 150 25% 25%;
+            --muted: 145 15% 94%;
+            --muted-foreground: 150 10% 45%;
+            --accent: 153 40% 50%;
+            --border: 145 20% 88%;
+            --sage-300: 150 20% 72%;
+            --gold-400: 45 80% 55%;
+            --gold-500: 42 75% 45%;
+            --radius: 0.75rem;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+            background-color: hsl(var(--background));
+            color: hsl(var(--foreground));
+            line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+
+        /* Navbar */
+        .navbar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 50;
+            background: hsla(0, 0%, 100%, 0.8);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid hsl(var(--border));
+        }
+
+        .navbar-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 80px;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+
+        .logo-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            background: hsl(var(--primary));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+        }
+
+        .logo-text {
+            font-weight: 700;
+            font-size: 1.125rem;
+            color: hsl(var(--foreground));
+        }
+
+        .nav-links {
+            display: none;
+            gap: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .nav-links {
+                display: flex;
+            }
+        }
+
+        .nav-links a {
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: hsl(var(--foreground));
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            padding: 0.75rem 1.5rem;
+            border-radius: 12px;
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-decoration: none;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary {
+            background: hsl(var(--primary));
+            color: white;
+            box-shadow: 0 4px 20px -4px hsl(var(--primary) / 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 32px -8px hsl(var(--primary) / 0.4);
+        }
+
+        .btn-hero {
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            box-shadow: 0 20px 50px -12px hsl(var(--primary) / 0.3);
+        }
+
+        .btn-outline {
+            background: hsla(0, 0%, 100%, 0.5);
+            color: hsl(var(--foreground));
+            border: 2px solid hsl(var(--primary) / 0.3);
+            backdrop-filter: blur(8px);
+        }
+
+        .btn-outline:hover {
+            background: hsl(var(--primary));
+            color: white;
+            border-color: hsl(var(--primary));
+        }
+
+        .nav-cta {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            .nav-cta {
+                display: block;
+            }
+        }
+
+        /* Mobile Menu */
+        .mobile-menu-btn {
+            display: block;
+            padding: 0.5rem;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu-btn {
+                display: none;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            padding-top: 5rem;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, hsl(145 25% 92%) 0%, hsl(140 20% 97%) 50%, hsl(148 22% 90%) 100%);
+        }
+
+        .hero-decoration {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(60px);
+        }
+
+        .hero-decoration-1 {
+            top: 160px;
+            left: 40px;
+            width: 288px;
+            height: 288px;
+            background: hsl(var(--primary) / 0.1);
+        }
+
+        .hero-decoration-2 {
+            bottom: 80px;
+            right: 40px;
+            width: 384px;
+            height: 384px;
+            background: hsl(var(--sage-300) / 0.2);
+        }
+
+        .hero-content {
+            display: grid;
+            gap: 3rem;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-content {
+                grid-template-columns: 1fr 1fr;
+                gap: 4rem;
+            }
+        }
+
+        .hero-text {
+            text-align: center;
+            order: 2;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-text {
+                text-align: left;
+                order: 1;
+            }
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            background: hsl(var(--primary) / 0.1);
+            border: 1px solid hsl(var(--primary) / 0.2);
+            margin-bottom: 1.5rem;
+        }
+
+        .badge-text {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: hsl(var(--primary));
+        }
+
+        .hero-arabic {
+            font-size: 1.875rem;
+            color: hsl(var(--primary));
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-arabic {
+                font-size: 2.25rem;
+            }
+        }
+
+        .hero-title {
+            font-size: 2.25rem;
+            font-weight: 700;
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-title {
+                font-size: 3.75rem;
+            }
+        }
+
+        .text-gradient {
+            background: linear-gradient(135deg, hsl(var(--primary)) 0%, hsl(155 38% 38%) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            font-size: 1.125rem;
+            color: hsl(var(--muted-foreground));
+            max-width: 36rem;
+            margin: 0 auto 2rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-description {
+                margin: 0 0 2rem;
+            }
+        }
+
+        .hero-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            justify-content: center;
+        }
+
+        @media (min-width: 640px) {
+            .hero-buttons {
+                flex-direction: row;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .hero-buttons {
+                justify-content: flex-start;
+            }
+        }
+
+        .hero-stats {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            justify-content: center;
+            margin-top: 3rem;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-stats {
+                justify-content: flex-start;
+            }
+        }
+
+        .stat-value {
+            font-size: 1.875rem;
+            font-weight: 700;
+        }
+
+        .stat-label {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        .hero-mockup {
+            order: 1;
+            display: flex;
+            justify-content: center;
+        }
+
+        @media (min-width: 1024px) {
+            .hero-mockup {
+                order: 2;
+                justify-content: flex-end;
+            }
+        }
+
+        .mockup-image {
+            width: 288px;
+            filter: drop-shadow(0 25px 25px rgb(0 0 0 / 0.15));
+            animation: float 6s ease-in-out infinite;
+        }
+
+        @media (min-width: 768px) {
+            .mockup-image {
+                width: 320px;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .mockup-image {
+                width: 384px;
+            }
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Section Styles */
+        .section {
+            padding: 5rem 0;
+        }
+
+        @media (min-width: 768px) {
+            .section {
+                padding: 8rem 0;
+            }
+        }
+
+        .section-secondary {
+            background: hsl(var(--secondary) / 0.3);
+        }
+
+        .section-header {
+            text-align: center;
+            max-width: 42rem;
+            margin: 0 auto 4rem;
+        }
+
+        .section-label {
+            color: hsl(var(--primary));
+            font-weight: 600;
+            font-size: 0.875rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 1rem;
+            display: block;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .section-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        .section-description {
+            font-size: 1.125rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Features */
+        .features-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .features-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .features-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .glass-card {
+            background: hsla(0, 0%, 100%, 0.8);
+            backdrop-filter: blur(20px);
+            border: 1px solid hsl(var(--border) / 0.5);
+            box-shadow: 0 8px 32px -8px hsl(var(--primary) / 0.12);
+        }
+
+        .feature-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            transition: all 0.3s;
+        }
+
+        @media (min-width: 768px) {
+            .feature-card {
+                padding: 2rem;
+            }
+        }
+
+        .feature-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 50px -12px hsl(var(--primary) / 0.2);
+        }
+
+        .feature-icon {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: hsl(var(--primary) / 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.25rem;
+            transition: all 0.3s;
+        }
+
+        .feature-card:hover .feature-icon {
+            background: hsl(var(--primary));
+        }
+
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            color: hsl(var(--primary));
+            transition: color 0.3s;
+        }
+
+        .feature-card:hover .feature-icon svg {
+            color: white;
+        }
+
+        .feature-title {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .feature-description {
+            color: hsl(var(--muted-foreground));
+            line-height: 1.6;
+        }
+
+        /* Countdown Timer */
+        .countdown-wrapper {
+            max-width: 42rem;
+            margin: 0 auto 3rem;
+        }
+
+        .countdown-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+            text-align: center;
+        }
+
+        @media (min-width: 768px) {
+            .countdown-card {
+                padding: 2rem;
+            }
+        }
+
+        .countdown-header {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .countdown-header svg {
+            color: hsl(var(--primary));
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .countdown-label {
+            font-size: 0.875rem;
+            font-weight: 600;
+            color: hsl(var(--primary));
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .countdown-timer {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .countdown-timer {
+                gap: 1rem;
+            }
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-value {
+            width: 56px;
+            height: 56px;
+            border-radius: 12px;
+            background: hsl(var(--card));
+            border: 1px solid hsl(var(--border) / 0.5);
+            box-shadow: 0 8px 32px -8px hsl(var(--primary) / 0.12);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        @media (min-width: 640px) {
+            .countdown-value {
+                width: 80px;
+                height: 80px;
+                border-radius: 1rem;
+                font-size: 2.25rem;
+            }
+        }
+
+        .countdown-unit-label {
+            font-size: 0.75rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+
+        @media (min-width: 640px) {
+            .countdown-unit-label {
+                font-size: 0.875rem;
+            }
+        }
+
+        .countdown-separator {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 640px) {
+            .countdown-separator {
+                font-size: 1.875rem;
+            }
+        }
+
+        .countdown-note {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 1rem;
+        }
+
+        /* Pricing */
+        .pricing-card-wrapper {
+            max-width: 32rem;
+            margin: 0 auto;
+        }
+
+        .pricing-card {
+            border-radius: 1.5rem;
+            padding: 2rem;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .pricing-card {
+                padding: 2.5rem;
+            }
+        }
+
+        .early-bird-badge {
+            position: absolute;
+            top: 1.5rem;
+            right: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            padding: 0.375rem 0.75rem;
+            border-radius: 9999px;
+            background: hsl(var(--gold-400) / 0.2);
+            border: 1px solid hsl(var(--gold-400) / 0.3);
+        }
+
+        .early-bird-badge svg {
+            width: 16px;
+            height: 16px;
+            color: hsl(var(--gold-500));
+        }
+
+        .early-bird-badge span {
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: hsl(var(--gold-500));
+        }
+
+        .pricing-name {
+            font-size: 1.25rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+
+        .pricing-subtitle {
+            color: hsl(var(--muted-foreground));
+            margin-bottom: 1.5rem;
+        }
+
+        .pricing-price {
+            margin-bottom: 2rem;
+        }
+
+        .price-value {
+            font-size: 3rem;
+            font-weight: 700;
+        }
+
+        @media (min-width: 768px) {
+            .price-value {
+                font-size: 3.75rem;
+            }
+        }
+
+        .price-original {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 0.5rem;
+        }
+
+        .price-original span:first-child {
+            text-decoration: line-through;
+        }
+
+        .price-discount {
+            margin-left: 0.5rem;
+            color: hsl(var(--primary));
+            font-weight: 600;
+        }
+
+        .price-note {
+            font-size: 0.75rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 0.25rem;
+        }
+
+        .pricing-features {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .pricing-features li {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.5rem 0;
+        }
+
+        .check-icon {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: hsl(var(--primary) / 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .check-icon svg {
+            width: 12px;
+            height: 12px;
+            color: hsl(var(--primary));
+        }
+
+        .pricing-guarantee {
+            text-align: center;
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            margin-top: 1.5rem;
+        }
+
+        /* Testimonials */
+        .testimonials-grid {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 2rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .testimonials-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        .testimonial-card {
+            border-radius: 1rem;
+            padding: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .testimonial-card {
+                padding: 2rem;
+            }
+        }
+
+        .testimonial-stars {
+            display: flex;
+            gap: 0.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .testimonial-stars svg {
+            width: 20px;
+            height: 20px;
+            fill: hsl(var(--gold-400));
+            color: hsl(var(--gold-400));
+        }
+
+        .testimonial-content {
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+
+        .testimonial-author {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+        }
+
+        .author-avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: hsl(var(--primary) / 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.125rem;
+            font-weight: 700;
+            color: hsl(var(--primary));
+        }
+
+        .author-name {
+            font-weight: 600;
+        }
+
+        .author-role {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* FAQ */
+        .faq-wrapper {
+            max-width: 48rem;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            border-radius: 12px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.25rem 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: transparent;
+            border: none;
+            cursor: pointer;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1rem;
+            font-family: inherit;
+            color: hsl(var(--foreground));
+        }
+
+        .faq-question svg {
+            width: 20px;
+            height: 20px;
+            transition: transform 0.3s;
+        }
+
+        .faq-item.open .faq-question svg {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+        }
+
+        .faq-item.open .faq-answer {
+            max-height: 200px;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.25rem;
+            color: hsl(var(--muted-foreground));
+            line-height: 1.6;
+        }
+
+        /* CTA Section */
+        .cta-section {
+            padding: 5rem 0;
+            background: hsl(var(--primary));
+            position: relative;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .cta-section {
+                padding: 8rem 0;
+            }
+        }
+
+        .cta-decoration {
+            position: absolute;
+            border-radius: 50%;
+            background: hsla(0, 0%, 100%, 0.1);
+            filter: blur(60px);
+        }
+
+        .cta-decoration-1 {
+            top: 0;
+            left: 0;
+            width: 384px;
+            height: 384px;
+            transform: translate(-50%, -50%);
+        }
+
+        .cta-decoration-2 {
+            bottom: 0;
+            right: 0;
+            width: 320px;
+            height: 320px;
+            transform: translate(50%, 50%);
+        }
+
+        .cta-content {
+            position: relative;
+            z-index: 10;
+            text-align: center;
+        }
+
+        .cta-arabic {
+            font-size: 1.5rem;
+            color: hsla(0, 0%, 100%, 0.8);
+            margin-bottom: 1rem;
+        }
+
+        @media (min-width: 768px) {
+            .cta-arabic {
+                font-size: 1.875rem;
+            }
+        }
+
+        .cta-title {
+            font-size: 1.875rem;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 1.5rem;
+            max-width: 48rem;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        @media (min-width: 768px) {
+            .cta-title {
+                font-size: 2.25rem;
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .cta-title {
+                font-size: 3rem;
+            }
+        }
+
+        .cta-description {
+            font-size: 1.125rem;
+            color: hsla(0, 0%, 100%, 0.8);
+            max-width: 42rem;
+            margin: 0 auto 2.5rem;
+        }
+
+        .btn-cta {
+            background: white;
+            color: hsl(var(--primary));
+            padding: 1rem 2.5rem;
+            border-radius: 1rem;
+            font-size: 1rem;
+            box-shadow: 0 20px 50px -12px rgba(0, 0, 0, 0.25);
+        }
+
+        .btn-cta:hover {
+            background: hsla(0, 0%, 100%, 0.9);
+        }
+
+        .cta-note {
+            font-size: 0.875rem;
+            color: hsla(0, 0%, 100%, 0.6);
+            margin-top: 1.5rem;
+        }
+
+        /* Footer */
+        .footer {
+            padding: 3rem 0;
+            border-top: 1px solid hsl(var(--border));
+        }
+
+        .footer-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-content {
+                flex-direction: row;
+                justify-content: space-between;
+            }
+        }
+
+        .footer-links {
+            display: flex;
+            gap: 1.5rem;
+        }
+
+        .footer-links a {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .footer-links a:hover {
+            color: hsl(var(--foreground));
+        }
+
+        .footer-copyright {
+            font-size: 0.875rem;
+            color: hsl(var(--muted-foreground));
+        }
+
+        /* Utility */
+        .w-full { width: 100%; }
+        .text-center { text-align: center; }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <nav class="navbar">
+        <div class="container navbar-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <span class="logo-text">MUTABAAHKU</span>
+            </a>
+            
+            <div class="nav-links">
+                <a href="#features">Fitur</a>
+                <a href="#pricing">Harga</a>
+                <a href="#testimonials">Testimoni</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            
+            <div class="nav-cta">
+                <a href="https://hafalquran.myscalev.com/cekoutpage-mutabaah" target="_blank" class="btn btn-primary">Mulai Sekarang</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-decoration hero-decoration-1"></div>
+        <div class="hero-decoration hero-decoration-2"></div>
+        
+        <div class="container">
+            <div class="hero-content">
+                <div class="hero-text">
+                    <div class="badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: hsl(var(--primary))"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/><path d="M5 3v4"/><path d="M19 17v4"/><path d="M3 5h4"/><path d="M17 19h4"/></svg>
+                        <span class="badge-text">Promo 10 Orang Pertama</span>
+                    </div>
+                    
+                    <h2 class="hero-arabic arabic-text">مُتَابَعَةُ حِفْظِ القُرْآنِ</h2>
+                    
+                    <h1 class="hero-title">
+                        Pantau Hafalan
+                        <span class="text-gradient">Al-Quran Anda</span>
+                        Dengan Mudah
+                    </h1>
+                    
+                    <p class="hero-description">
+                        Aplikasi digital untuk mencatat dan memantau progress hafalan Al-Quran. 
+                        Cocok untuk pribadi, halaqah, atau pesantren.
+                    </p>
+                    
+                    <div class="hero-buttons">
+                        <a href="https://hafalquran.myscalev.com/cekoutpage-mutabaah" target="_blank" class="btn btn-primary btn-hero">
+                            Mulai Sekarang
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                        </a>
+                        <a href="#features" class="btn btn-outline btn-hero">Lihat Fitur</a>
+                    </div>
+                    
+                    <div class="hero-stats">
+                        <div>
+                            <div class="stat-value">100+</div>
+                            <div class="stat-label">Pengguna Aktif</div>
+                        </div>
+                        <div>
+                            <div class="stat-value">30</div>
+                            <div class="stat-label">Juz Tersedia</div>
+                        </div>
+                        <div>
+                            <div class="stat-value">4.9★</div>
+                            <div class="stat-label">Rating</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="hero-mockup">
+                    <img src="https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=400&h=600&fit=crop" alt="MUTABAAHKU App" class="mockup-image" style="border-radius: 24px;">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="section section-secondary">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Fitur Unggulan</span>
+                <h2 class="section-title">
+                    Semua yang Anda Butuhkan untuk <span class="text-gradient">Menghafal Al-Quran</span>
+                </h2>
+                <p class="section-description">
+                    Fitur lengkap untuk memudahkan perjalanan menghafal Al-Quran Anda
+                </p>
+            </div>
+            
+            <div class="features-grid">
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    </div>
+                    <h3 class="feature-title">Pencatatan Hafalan</h3>
+                    <p class="feature-description">Catat progress hafalan per ayat, surah, atau juz dengan mudah dan terorganisir.</p>
+                </div>
+                
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="m19 9-5 5-4-4-3 3"/></svg>
+                    </div>
+                    <h3 class="feature-title">Statistik Progress</h3>
+                    <p class="feature-description">Pantau perkembangan hafalan dengan grafik dan laporan yang informatif.</p>
+                </div>
+                
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                    </div>
+                    <h3 class="feature-title">Manajemen Santri</h3>
+                    <p class="feature-description">Kelola banyak santri dalam satu dashboard untuk halaqah atau pesantren.</p>
+                </div>
+                
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 8a6 6 0 0 1 12 0c0 7 3 9 3 9H3s3-2 3-9"/><path d="M10.3 21a1.94 1.94 0 0 0 3.4 0"/></svg>
+                    </div>
+                    <h3 class="feature-title">Pengingat Muroja'ah</h3>
+                    <p class="feature-description">Notifikasi otomatis untuk jadwal muroja'ah agar hafalan tetap terjaga.</p>
+                </div>
+                
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10"/></svg>
+                    </div>
+                    <h3 class="feature-title">Data Aman</h3>
+                    <p class="feature-description">Data hafalan tersimpan aman di cloud dan dapat diakses kapan saja.</p>
+                </div>
+                
+                <div class="glass-card feature-card">
+                    <div class="feature-icon">
+                        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="14" height="20" x="5" y="2" rx="2" ry="2"/><path d="M12 18h.01"/></svg>
+                    </div>
+                    <h3 class="feature-title">Akses Multi-Device</h3>
+                    <p class="feature-description">Gunakan di smartphone, tablet, atau laptop dengan tampilan responsif.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pricing Section -->
+    <section id="pricing" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Harga Spesial</span>
+                <h2 class="section-title">
+                    Investasi Terbaik untuk <span class="text-gradient">Perjalanan Hafalan</span>
+                </h2>
+                <p class="section-description">
+                    Dapatkan harga spesial untuk 10 orang pertama
+                </p>
+            </div>
+            
+            <!-- Countdown Timer -->
+            <div class="countdown-wrapper">
+                <div class="glass-card countdown-card">
+                    <div class="countdown-header">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
+                        <span class="countdown-label">Promo Berakhir Dalam</span>
+                    </div>
+                    <div class="countdown-timer" id="countdown">
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="days">07</div>
+                            <span class="countdown-unit-label">Hari</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="hours">00</div>
+                            <span class="countdown-unit-label">Jam</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="minutes">00</div>
+                            <span class="countdown-unit-label">Menit</span>
+                        </div>
+                        <span class="countdown-separator">:</span>
+                        <div class="countdown-unit">
+                            <div class="countdown-value" id="seconds">00</div>
+                            <span class="countdown-unit-label">Detik</span>
+                        </div>
+                    </div>
+                    <p class="countdown-note">Jangan sampai ketinggalan harga spesial ini!</p>
+                </div>
+            </div>
+            
+            <!-- Pricing Card -->
+            <div class="pricing-card-wrapper">
+                <div class="glass-card pricing-card">
+                    <div class="early-bird-badge">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m12 3-1.912 5.813a2 2 0 0 1-1.275 1.275L3 12l5.813 1.912a2 2 0 0 1 1.275 1.275L12 21l1.912-5.813a2 2 0 0 1 1.275-1.275L21 12l-5.813-1.912a2 2 0 0 1-1.275-1.275L12 3Z"/></svg>
+                        <span>EARLY BIRD</span>
+                    </div>
+                    
+                    <h3 class="pricing-name">Akses Premium Selamanya</h3>
+                    <p class="pricing-subtitle">Bayar sekali, gunakan selamanya</p>
+                    
+                    <div class="pricing-price">
+                        <div class="price-value">Rp29.000</div>
+                        <p class="price-original">
+                            <span>Rp99.000</span>
+                            <span class="price-discount">Hemat 70%</span>
+                        </p>
+                        <p class="price-note">* Harga naik bertahap setelah 10 orang pertama</p>
+                    </div>
+                    
+                    <ul class="pricing-features">
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Akses penuh semua fitur</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Pencatatan hafalan tanpa batas</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Statistik dan laporan lengkap</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Manajemen multi-santri</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Sinkronisasi cloud</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Dukungan prioritas</span>
+                        </li>
+                        <li>
+                            <div class="check-icon">
+                                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                            </div>
+                            <span>Update fitur gratis selamanya</span>
+                        </li>
+                    </ul>
+                    
+                    <a href="https://hafalquran.myscalev.com/cekoutpage-mutabaah" target="_blank" class="btn btn-primary btn-hero w-full">
+                        Dapatkan Sekarang
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                    </a>
+                    
+                    <p class="pricing-guarantee">🔒 Pembayaran aman & garansi 7 hari uang kembali</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Testimonials Section -->
+    <section id="testimonials" class="section section-secondary">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">Testimoni</span>
+                <h2 class="section-title">
+                    Apa Kata <span class="text-gradient">Pengguna Kami</span>
+                </h2>
+                <p class="section-description">
+                    Bergabunglah dengan ratusan pengguna yang sudah merasakan manfaatnya
+                </p>
+            </div>
+            
+            <div class="testimonials-grid">
+                <div class="glass-card testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-content">"Sangat membantu dalam memantau progress santri. Sekarang saya bisa fokus mengajar tanpa repot mencatat manual."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">A</div>
+                        <div>
+                            <div class="author-name">Ahmad Fauzi</div>
+                            <div class="author-role">Pengajar Tahfidz</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-content">"Anak-anak jadi lebih semangat menghafal karena bisa lihat progress mereka sendiri. Recommended!"</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">S</div>
+                        <div>
+                            <div class="author-name">Siti Aisyah</div>
+                            <div class="author-role">Ibu Rumah Tangga</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="glass-card testimonial-card">
+                    <div class="testimonial-stars">
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                        <svg viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    </div>
+                    <p class="testimonial-content">"Aplikasi yang simpel tapi powerful. Cocok banget buat yang mau serius menghafal Al-Quran."</p>
+                    <div class="testimonial-author">
+                        <div class="author-avatar">M</div>
+                        <div>
+                            <div class="author-name">Muhammad Rizki</div>
+                            <div class="author-role">Mahasiswa</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="section">
+        <div class="container">
+            <div class="section-header">
+                <span class="section-label">FAQ</span>
+                <h2 class="section-title">
+                    Pertanyaan <span class="text-gradient">Yang Sering Diajukan</span>
+                </h2>
+                <p class="section-description">
+                    Temukan jawaban untuk pertanyaan umum tentang MUTABAAHKU
+                </p>
+            </div>
+            
+            <div class="faq-wrapper">
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Apakah MUTABAAHKU bisa digunakan offline?
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-content">Saat ini MUTABAAHKU membutuhkan koneksi internet untuk sinkronisasi data. Namun, kami sedang mengembangkan fitur offline untuk versi mendatang.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Berapa banyak santri yang bisa dikelola?
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-content">Dengan akses premium, Anda bisa mengelola santri tanpa batas. Cocok untuk halaqah kecil hingga pesantren besar.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Apakah data hafalan saya aman?
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-content">Ya, semua data disimpan dengan enkripsi di server cloud yang aman. Kami memprioritaskan keamanan dan privasi data Anda.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Bagaimana cara pembayaran?
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-content">Pembayaran dapat dilakukan melalui transfer bank atau e-wallet. Setelah pembayaran dikonfirmasi, akses premium akan langsung aktif.</p>
+                    </div>
+                </div>
+                
+                <div class="glass-card faq-item">
+                    <button class="faq-question" onclick="toggleFaq(this)">
+                        Apakah ada garansi uang kembali?
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p class="faq-answer-content">Ya, kami memberikan garansi 7 hari uang kembali jika Anda tidak puas dengan layanan kami. Tanpa pertanyaan.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="cta-decoration cta-decoration-1"></div>
+        <div class="cta-decoration cta-decoration-2"></div>
+        
+        <div class="container cta-content">
+            <h2 class="cta-arabic arabic-text">وَرَتِّلِ الْقُرْآنَ تَرْتِيلًا</h2>
+            <h3 class="cta-title">Mulai Perjalanan Hafalan Al-Quran Anda Hari Ini</h3>
+            <p class="cta-description">Jangan tunda lagi. Ribuan orang sudah memulai. Saatnya giliran Anda.</p>
+            <a href="https://hafalquran.myscalev.com/cekoutpage-mutabaah" target="_blank" class="btn btn-cta">
+                Daftar Sekarang - Rp29.000
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+            </a>
+            <p class="cta-note">* Harga promo untuk 10 orang pertama saja</p>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container footer-content">
+            <a href="#" class="logo">
+                <div class="logo-icon">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                </div>
+                <span class="logo-text">MUTABAAHKU</span>
+            </a>
+            
+            <div class="footer-links">
+                <a href="#features">Fitur</a>
+                <a href="#pricing">Harga</a>
+                <a href="#faq">FAQ</a>
+            </div>
+            
+            <p class="footer-copyright">© 2024 MUTABAAHKU. All rights reserved.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Countdown Timer
+        function updateCountdown() {
+            const now = new Date();
+            const target = new Date();
+            target.setDate(target.getDate() + 7);
+            
+            const diff = target - now;
+            
+            if (diff <= 0) {
+                document.getElementById('days').textContent = '00';
+                document.getElementById('hours').textContent = '00';
+                document.getElementById('minutes').textContent = '00';
+                document.getElementById('seconds').textContent = '00';
+                return;
+            }
+            
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+            const minutes = Math.floor((diff / 1000 / 60) % 60);
+            const seconds = Math.floor((diff / 1000) % 60);
+            
+            document.getElementById('days').textContent = String(days).padStart(2, '0');
+            document.getElementById('hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
+        }
+        
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+        
+        // FAQ Toggle
+        function toggleFaq(button) {
+            const faqItem = button.parentElement;
+            faqItem.classList.toggle('open');
+        }
+        
+        // Smooth scroll for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

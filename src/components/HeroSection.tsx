@@ -1,21 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
 import appMockup from "@/assets/app-mockup.png";
-import heroBg from "@/assets/hero-bg.jpg";
+
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
 
 const HeroSection = () => {
   return (
-    <section 
-      className="relative min-h-screen flex items-center pt-20 overflow-hidden"
-      style={{
-        backgroundImage: `url(${heroBg})`,
-        backgroundSize: 'cover',
-        backgroundPosition: 'center',
-      }}
-    >
-      {/* Overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-background/30 via-background/50 to-background" />
-      
+    <section className="relative min-h-screen flex items-center pt-20 overflow-hidden bg-hero-pattern">
       {/* Decorative Elements */}
       <div className="absolute top-40 left-10 w-72 h-72 bg-primary/10 rounded-full blur-3xl" />
       <div className="absolute bottom-20 right-10 w-96 h-96 bg-sage-300/20 rounded-full blur-3xl" />
@@ -51,7 +42,7 @@ const HeroSection = () => {
             {/* CTA Buttons */}
             <div className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-up delay-400">
               <Button variant="hero" size="xl" asChild>
-                <a href="https://mutabaah-hafalan.vercel.app/" target="_blank" rel="noopener noreferrer">
+                <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
                   Mulai Sekarang
                   <ArrowRight className="w-5 h-5" />
                 </a>

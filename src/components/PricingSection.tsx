@@ -6,13 +6,11 @@ const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
 
 const PricingSection = () => {
   const features = [
-    "Akses penuh semua fitur",
-    "Pencatatan hafalan tanpa batas",
-    "Statistik dan laporan lengkap",
-    "Manajemen multi-santri",
-    "Sinkronisasi cloud",
-    "Dukungan prioritas",
-    "Update fitur gratis selamanya",
+    "Panduan penggunaan aplikasi",
+    "Akses fitur penuh",
+    "Support aplikasi sampai bisa log in",
+    "Gratis Update",
+    "Data aman menggunakan local storage masing-masing",
   ];
 
   // Set target date 7 days from now for the promo
@@ -59,16 +57,16 @@ const PricingSection = () => {
         {/* Pricing Card */}
         <div className="max-w-lg mx-auto">
           <div className="relative glass-card rounded-3xl p-8 md:p-10 overflow-hidden">
-            {/* Early Bird Badge */}
-            <div className="absolute top-6 right-6">
-              <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-gold-400/20 border border-gold-400/30">
+            {/* Early Bird Badge - Centered at top */}
+            <div className="flex justify-center mb-6">
+              <div className="flex items-center gap-1.5 px-4 py-2 rounded-full bg-gold-400/20 border border-gold-400/30">
                 <Sparkles className="w-4 h-4 text-gold-500" />
-                <span className="text-xs font-bold text-gold-500">EARLY BIRD</span>
+                <span className="text-sm font-bold text-gold-500">EARLY BIRD</span>
               </div>
             </div>
 
             {/* Plan Name */}
-            <h3 className="text-xl font-bold text-foreground mb-2">Akses Premium Selamanya</h3>
+            <h3 className="text-xl font-bold text-foreground mb-2 text-center">Akses Premium Selamanya</h3>
             <p className="text-muted-foreground mb-6">Bayar sekali, gunakan selamanya</p>
 
             {/* Price */}

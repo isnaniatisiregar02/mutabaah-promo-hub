@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 
-const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
 
 const CTASection = () => {
   return (

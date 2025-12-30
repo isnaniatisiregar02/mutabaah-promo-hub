@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
+import { trackAddToCart } from "@/lib/fbPixel";
 
 const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
+
+const handleCheckoutClick = () => {
+  trackAddToCart();
+};
 
 const CTASection = () => {
   return (
@@ -28,7 +33,7 @@ const CTASection = () => {
             className="bg-primary-foreground text-primary hover:bg-primary-foreground/90 rounded-2xl shadow-elevated hover:-translate-y-1 transition-all"
             asChild
           >
-            <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
+            <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
               Daftar Sekarang - Rp29.000
               <ArrowRight className="w-5 h-5" />
             </a>

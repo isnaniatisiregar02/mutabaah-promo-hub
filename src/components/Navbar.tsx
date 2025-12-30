@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { BookOpen, Menu, X } from "lucide-react";
 import { useState } from "react";
+import { trackAddToCart } from "@/lib/fbPixel";
 
 const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
+
+const handleCheckoutClick = () => {
+  trackAddToCart();
+};
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -42,7 +47,7 @@ const Navbar = () => {
           {/* CTA Button */}
           <div className="hidden md:block">
             <Button asChild>
-              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
+              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
                 Mulai Sekarang
               </a>
             </Button>
@@ -72,7 +77,7 @@ const Navbar = () => {
                 </a>
               ))}
               <Button asChild className="mt-2">
-                <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
+                <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
                   Mulai Sekarang
                 </a>
               </Button>

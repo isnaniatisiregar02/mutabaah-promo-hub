@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
-import { Check, Sparkles, ArrowRight } from "lucide-react";
+import { Check, Sparkles, ArrowRight, Clock } from "lucide-react";
+import CountdownTimer from "./CountdownTimer";
 
 const PricingSection = () => {
   const features = [
@@ -12,6 +13,10 @@ const PricingSection = () => {
     "Update fitur gratis selamanya",
   ];
 
+  // Set target date 7 days from now for the promo
+  const promoEndDate = new Date();
+  promoEndDate.setDate(promoEndDate.getDate() + 7);
+
   return (
     <section id="pricing" className="py-20 md:py-32 relative overflow-hidden">
       {/* Background Decorations */}
@@ -20,7 +25,7 @@ const PricingSection = () => {
 
       <div className="container relative mx-auto px-4">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-16">
+        <div className="text-center max-w-2xl mx-auto mb-12">
           <span className="text-primary font-semibold text-sm uppercase tracking-wider mb-4 block">
             Harga Spesial
           </span>
@@ -31,6 +36,22 @@ const PricingSection = () => {
           <p className="text-muted-foreground text-lg">
             Dapatkan harga spesial untuk 10 orang pertama
           </p>
+        </div>
+
+        {/* Countdown Timer */}
+        <div className="max-w-2xl mx-auto mb-12">
+          <div className="glass-card rounded-2xl p-6 md:p-8 text-center">
+            <div className="flex items-center justify-center gap-2 mb-4">
+              <Clock className="w-5 h-5 text-primary animate-pulse" />
+              <span className="text-sm font-semibold text-primary uppercase tracking-wider">
+                Promo Berakhir Dalam
+              </span>
+            </div>
+            <CountdownTimer targetDate={promoEndDate} />
+            <p className="text-sm text-muted-foreground mt-4">
+              Jangan sampai ketinggalan harga spesial ini!
+            </p>
+          </div>
         </div>
 
         {/* Pricing Card */}

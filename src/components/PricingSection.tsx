@@ -105,7 +105,7 @@ const PricingSection = () => {
 
             {/* Guarantee */}
             <p className="text-center text-sm text-muted-foreground mt-6">
-              🔒 Pembayaran aman & garansi 7 hari uang kembali
+              🔒 Garansi kamu pasti bisa akses aplikasi
             </p>
           </div>
         </div>

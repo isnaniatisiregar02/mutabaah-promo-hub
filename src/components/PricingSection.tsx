@@ -1,8 +1,13 @@
 import { Button } from "@/components/ui/button";
 import { Check, Sparkles, ArrowRight, Clock } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
+import { trackAddToCart } from "@/lib/fbPixel";
 
 const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
+
+const handleCheckoutClick = () => {
+  trackAddToCart();
+};
 
 const PricingSection = () => {
   const features = [
@@ -97,7 +102,7 @@ const PricingSection = () => {
 
             {/* CTA Button */}
             <Button variant="hero" size="xl" className="w-full" asChild>
-              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
+              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
                 Dapatkan Sekarang
                 <ArrowRight className="w-5 h-5" />
               </a>

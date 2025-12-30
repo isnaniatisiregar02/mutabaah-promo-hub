@@ -1,3 +1,4 @@
+import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import FeaturesSection from "@/components/FeaturesSection";
@@ -7,8 +8,15 @@ import FAQSection from "@/components/FAQSection";
 import CTASection from "@/components/CTASection";
 import Footer from "@/components/Footer";
 import { Helmet } from "react-helmet-async";
+import { initFacebookPixel, trackPageView, trackViewContent } from "@/lib/fbPixel";
 
 const Index = () => {
+  useEffect(() => {
+    initFacebookPixel();
+    trackPageView();
+    trackViewContent();
+  }, []);
+
   return (
     <>
       <Helmet>

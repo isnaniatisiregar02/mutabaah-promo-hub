@@ -1,7 +1,12 @@
 import { Button } from "@/components/ui/button";
 import { ArrowRight, Sparkles } from "lucide-react";
+import { trackAddToCart } from "@/lib/fbPixel";
 
 const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
+
+const handleCheckoutClick = () => {
+  trackAddToCart();
+};
 
 const HeroSection = () => {
   return (
@@ -39,7 +44,7 @@ const HeroSection = () => {
           {/* CTA Buttons */}
           <div className="flex flex-col sm:flex-row gap-4 justify-center animate-fade-up delay-400">
             <Button variant="hero" size="xl" asChild>
-              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer">
+              <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
                 Mulai Sekarang
                 <ArrowRight className="w-5 h-5" />
               </a>

@@ -2,21 +2,21 @@ import { Star } from "lucide-react";
 
 const testimonials = [
   {
-    name: "Ahmad Fauzi",
-    role: "Pengajar Tahfidz",
-    content: "Sangat membantu dalam memantau progress santri. Sekarang saya bisa fokus mengajar tanpa repot mencatat manual.",
+    name: "Reyhan",
+    role: "",
+    content: "Maa syaa Allah ana udah cek out Mutabaah hafalan nya kak, membuat ana jadi lebih semangat untuk konsisten ngafal quran dan murojaah. Semangat berprogres sangat membantu.",
     rating: 5,
   },
   {
-    name: "Siti Aisyah",
-    role: "Ibu Rumah Tangga",
-    content: "Anak-anak jadi lebih semangat menghafal karena bisa lihat progress mereka sendiri. Recommended!",
+    name: "Ustadzah Ma'rifatul Husna",
+    role: "",
+    content: "Allahumma baarik. Jazakillahu khairan katsiran Ustadzah atas kebaikan dan keikhlasan sudah membuatkan Aplikasi ini. Ini benar-benar menjadi kemudahan besar dan sangat membantu proses pembelajaran Al-Qur'an. Semoga setiap huruf hafalan yang tercatat, setiap kemudahan yang dirasakan, mengalir sebagai pahala jariyah bagi Ustadzah.",
     rating: 5,
   },
   {
-    name: "Muhammad Rizki",
-    role: "Mahasiswa",
-    content: "Aplikasi yang simpel tapi powerful. Cocok banget buat yang mau serius menghafal Al-Quran.",
+    name: "Ummu Sahl",
+    role: "",
+    content: "Aplikasi MUTABAAHKU ini bagus dan rekomended, lengkap fiturnya tapi gak sebanding dengan harganya kemurahan.",
     rating: 5,
   },
 ];

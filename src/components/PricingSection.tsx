@@ -18,9 +18,12 @@ const PricingSection = () => {
     "Data aman menggunakan local storage masing-masing",
   ];
 
-  // Set target date 7 days from now for the promo
+  // Set target date to 1 day 23 hours 59 minutes 59 seconds from now
   const promoEndDate = new Date();
-  promoEndDate.setDate(promoEndDate.getDate() + 7);
+  promoEndDate.setDate(promoEndDate.getDate() + 1);
+  promoEndDate.setHours(promoEndDate.getHours() + 23);
+  promoEndDate.setMinutes(promoEndDate.getMinutes() + 59);
+  promoEndDate.setSeconds(promoEndDate.getSeconds() + 59);
 
   return (
     <section id="pricing" className="py-20 md:py-32 relative overflow-hidden">

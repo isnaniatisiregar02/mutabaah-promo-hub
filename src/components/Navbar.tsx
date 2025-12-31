@@ -3,7 +3,7 @@ import { BookOpen, Menu, X } from "lucide-react";
 import { useState } from "react";
 import { trackAddToCart } from "@/lib/fbPixel";
 
-const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON60";
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
 
 const handleCheckoutClick = () => {
   trackAddToCart();

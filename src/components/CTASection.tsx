@@ -2,7 +2,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowRight } from "lucide-react";
 import { trackAddToCart } from "@/lib/fbPixel";
 
-const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON60";
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
 
 const handleCheckoutClick = () => {
   trackAddToCart();
@@ -34,7 +34,7 @@ const CTASection = () => {
             asChild
           >
             <a href={CHECKOUT_URL} target="_blank" rel="noopener noreferrer" onClick={handleCheckoutClick}>
-              Daftar Sekarang - Rp39.000
+              Daftar Sekarang - Rp29.000
               <ArrowRight className="w-5 h-5" />
             </a>
           </Button>

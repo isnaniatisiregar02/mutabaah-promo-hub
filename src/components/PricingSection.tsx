@@ -80,11 +80,11 @@ const PricingSection = () => {
             {/* Price */}
             <div className="mb-8">
               <div className="flex items-baseline gap-2">
-                <span className="text-5xl md:text-6xl font-bold text-foreground">Rp29.000</span>
+                <span className="text-5xl md:text-6xl font-bold text-foreground">Rp49.000</span>
               </div>
               <p className="text-sm text-muted-foreground mt-2">
                 <span className="line-through">Rp99.000</span>
-                <span className="ml-2 text-primary font-semibold">Hemat 70%</span>
+                <span className="ml-2 text-primary font-semibold">Hemat 50%</span>
               </p>
               <p className="text-xs text-muted-foreground mt-1">
                 * Harga naik bertahap setelah 10 orang pertama

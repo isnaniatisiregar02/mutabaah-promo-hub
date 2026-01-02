@@ -3,7 +3,7 @@ import { Check, Sparkles, ArrowRight, Clock } from "lucide-react";
 import CountdownTimer from "./CountdownTimer";
 import { trackAddToCart } from "@/lib/fbPixel";
 
-const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah?discount_code=DISKON70";
+const CHECKOUT_URL = "https://hafalquran.myscalev.com/cekoutpage-mutabaah";
 
 const handleCheckoutClick = () => {
   trackAddToCart();
